@@ -27,7 +27,8 @@ class TestAllUser:
             try:
                 login.auth(login_name=user, login_password=password)
                 print(f" Ввожу логин {user} и пароль {password}")
-                assert driver.current_url == 'https://www.saucedemo.com/inventory.html', f"Ошибка, не найдена страница {driver.current_url}"
+                title = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH,'//span[@class="title"]'))).text
+                assert title == 'Products', f"Ошибка, название титула {title}"
                 print(f"Успешно вошел в систему под логином {user}")
                 logout.log_out(user)
             except:
